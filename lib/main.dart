@@ -66,6 +66,34 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  File _image;
+  final picker = ImagePicker();
+  bool submitButtonVisible = false;
+  bool predictedLabelTextVisible = false;
+  bool isImagePosting = false;
+  String predictedLabelText;
+
+  Future getCameraImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    print(pickedFile.path);
+
+    setState(() {
+      _image = File(pickedFile.path);
+      submitButtonVisible = true;
+      predictedLabelTextVisible = false;
+    });
+  }
+
+  Future getGalleryImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = File(pickedFile.path);
+      submitButtonVisible = true;
+      predictedLabelTextVisible = false;
+    });
+  }
+
   Widget homeButton(String buttonText) {
     return SizedBox(
       width: double.infinity,
@@ -74,7 +102,11 @@ class HomePageState extends State<HomePage> {
           buttonText,
           style: TextStyle(color: Colors.black),
         ),
-        onPressed: () {},
+        onPressed: () {
+          buttonText == "📷 Take an Image"
+              ? getCameraImage()
+              : getGalleryImage();
+        },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(Colors.blue[100]),
         ),
@@ -99,9 +131,7 @@ class HomePageState extends State<HomePage> {
               child: Column(
                 children: <Widget>[
                   homeButton("📷 Take an Image"),
-                  Container(
-                    child: Text("OR"),
-                  ),
+                  Container(child: Text("OR")),
                   homeButton("🖼️ Upload an Image")
                 ],
               ),
