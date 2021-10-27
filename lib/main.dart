@@ -174,6 +174,7 @@ class LanguageSelectionPageState extends State<LanguageSelectionPage> {
                   showSearchBox: true,
                   dropdownSearchDecoration: InputDecoration(
                     labelText: "Source Language",
+                    labelStyle: TextStyle(fontSize: 23),
                   ),
                   onChanged: (value) {
                     setState(() {
@@ -193,6 +194,7 @@ class LanguageSelectionPageState extends State<LanguageSelectionPage> {
                   popupItemDisabled: (String s) => s == sourceLanguage,
                   dropdownSearchDecoration: InputDecoration(
                     labelText: "Target Language",
+                    labelStyle: TextStyle(fontSize: 23),
                   ),
                   onChanged: (value) {
                     Navigator.push(
@@ -238,16 +240,21 @@ class ImageSelectionPageState extends State<ImageSelectionPage> {
       String sourceLanguage, String targetLanguage) {
     return SizedBox(
       width: double.infinity,
-      child: TextButton(
-        child: Text(
-          buttonText,
-          style: TextStyle(color: Colors.black),
+      child: ElevatedButton(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+          child: Text(
+            buttonText,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 17,
+            ),
+          ),
         ),
         onPressed: () {
           Future<File> image = buttonText == "📷 Take an Image"
               ? getImage('camera')
               : getImage('gallery');
-
           image.then(
             (value) => {
               Navigator.push(
@@ -285,7 +292,15 @@ class ImageSelectionPageState extends State<ImageSelectionPage> {
                 children: <Widget>[
                   homeButton("📷 Take an Image", context, widget.sourceLanguage,
                       widget.targetLanguage),
-                  SizedBox(child: Text("OR")),
+                  SizedBox(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                      child: Text(
+                        "OR",
+                        style: TextStyle(fontSize: 17),
+                      ),
+                    ),
+                  ),
                   homeButton("🖼️ Upload an Image", context,
                       widget.sourceLanguage, widget.targetLanguage)
                 ],
@@ -326,10 +341,24 @@ class ImagePreviewAndResultPageState extends State<ImagePreviewAndResultPage> {
           ),
           SizedBox(height: 15),
           CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.pink[100]),
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.blue[200]),
           ),
         ],
       ),
+    ));
+  }
+
+  Widget submitButtonBuilder() {
+    return (ElevatedButton(
+      child: Text(
+        "Submit",
+        style: TextStyle(color: Colors.black),
+      ),
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Colors.blue[100]),
+      ),
+      onPressed: () => translateImage(
+          widget.image, widget.sourceLanguage, widget.targetLanguage),
     ));
   }
 
@@ -342,11 +371,11 @@ class ImagePreviewAndResultPageState extends State<ImagePreviewAndResultPage> {
 
     var stream = new http.ByteStream(Stream.castFrom(image.openRead()));
     var length = await image.length();
-    var uri = Uri.parse("path/to/server/");
+    var uri = Uri.parse("http://10.0.2.2:5000");
 
     var request = new http.MultipartRequest("POST", uri);
     var multipartFile = new http.MultipartFile(
-      'InputImg',
+      'image',
       stream,
       length,
       filename: basename(image.path),
@@ -391,24 +420,16 @@ class ImagePreviewAndResultPageState extends State<ImagePreviewAndResultPage> {
               ),
               SizedBox(height: 30),
               translatedText != null
-                  ? Text(
-                      translatedText,
-                      style: TextStyle(fontSize: 22),
-                    )
-                  : RaisedButton(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 40, vertical: 13),
+                  ? Padding(
+                      padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 0),
                       child: Text(
-                        "Submit",
-                        style: TextStyle(color: Colors.white, fontSize: 17),
+                        translatedText,
+                        style: TextStyle(fontSize: 17),
                       ),
-                      color: Colors.blue[200],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      onPressed: () => translateImage(widget.image,
-                          widget.sourceLanguage, widget.targetLanguage),
-                    ),
+                    )
+                  : isImagePosting
+                      ? buildProgressIndicator()
+                      : submitButtonBuilder()
             ],
           ),
         ),
