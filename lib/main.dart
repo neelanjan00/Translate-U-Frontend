@@ -371,7 +371,11 @@ class ImagePreviewAndResultPageState extends State<ImagePreviewAndResultPage> {
 
     var stream = new http.ByteStream(Stream.castFrom(image.openRead()));
     var length = await image.length();
-    var uri = Uri.parse("http://32eb-117-205-245-171.ngrok.io");
+
+    // replace the empty string with your server URL
+    var serverUrl = "";
+
+    var uri = Uri.parse(serverUrl);
 
     var request = new http.MultipartRequest("POST", uri);
     var multipartFile = new http.MultipartFile(
