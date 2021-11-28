@@ -1,16 +1,23 @@
-# translate_u
+<img src="https://firebasestorage.googleapis.com/v0/b/neelanjan-manna.appspot.com/o/project-images%2FTranslate%20U.jpg?alt=media&token=c20235a3-6636-415e-b68f-13a00d0130a8" width="400" />
+<h1 align="center">Welcome to Translate U 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0-blue.svg?cacheSeconds=2592000" />
+  <a href="https://twitter.com/NeelanjanManna" target="_blank">
+    <img alt="Twitter: NeelanjanManna" src="https://img.shields.io/twitter/follow/NeelanjanManna.svg?style=social" />
+  </a>
+</p>
 
-A new Flutter project.
+> [This is the frontend mobile application of the project, the backend can be found (here)[https://github.com/neelanjan00/Translate-U/]] Translate U is capable of translating text given in an image from one language to another. The detection of text in the image is performed by [easyOCR](https://github.com/JaidedAI/EasyOCR) while the translation of the text is performed using the [Google Translate API](https://cloud.google.com/translate/). The application supports translation across 80+ languages, the whole list of which can be accessed [here](https://www.jaided.ai/easyocr/#:~:text=languages%20and%20expanding.-,Supported%20Languages,-Language).
 
-## Getting Started
+### 🏠 [Homepage](https://github.com/neelanjan00/Translate-U)
 
-This project is a starting point for a Flutter application.
+👤 **Neelanjan Manna**
 
-A few resources to get you started if this is your first Flutter project:
+* Website: https://neelanjanmanna.ml/
+* Twitter: [@NeelanjanManna](https://twitter.com/NeelanjanManna)
+* Github: [@neelanjan00](https://github.com/neelanjan00)
+* LinkedIn: [@neelanjan00](https://linkedin.com/in/neelanjan00)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Show your support
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Give a ⭐️ if this project helped you!
